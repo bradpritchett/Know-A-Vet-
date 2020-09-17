@@ -10,1410 +10,1421 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://kit.fontawesome.com/63b62ed9a7.js" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
 </head>
 
 <body>
 	<style>
+		#zip-results {
+    padding: 10px;
+    margin: 20px auto;
+}
+.respond {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
 		.card {
     text-align: center;
+	height: 115px;
+	position: relative;
 }
 input.custom-control-input {
     opacity: 1;
     z-index: 1;
-    height: 40px;
-    width: 40px;
+    height: 20px;
+    width: 20px;
     display: block;
     margin: 0 auto;
     position: relative;
+	top: 10px;
 }
+.card-wrapper {
+    margin: 10px auto;
+}
+.card-header {
+	background: lightgray;
+   
+}
+
+
 	</style>
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1 class="center">Here is some bullshit</h1>
+				<h2 class="center">Here is some bullshit</h2>
+			</div>
+			<div class="col">
+				<h2>Enter ZIP Code to find local resources</h2>
+				<span>
+					<label for="zipcode-entry">Enter your Zip Code: </label>
+					<input id="zipcode-entry" name="zipcodetarget" type="text" />	
+				</span>
+				
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<form onsubmit="zipSub()" class="row" method="post">
-					<input name="action" type="hidden" value="communityresourcescatalog" />
-					<input name="applicationid" type="hidden" value="1539284375" />
-					<input name="applicationidshort" type="hidden" value="4375" />
-					<div class="col-md-4">
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
+				<form onsubmit="zipSub(event)"method="post">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Addiction</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Addiction" data-url="https://maketheconnection.net/symptoms/alcohol-drug-problems">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Adjustment Issues</h5>
+											
+										</div>
+										<div class="card-body">
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/adjustment-disorder" target="_blank">Explore Adjustment Issues At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Aging</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/retirement-aging" target="_blank">Explore Aging At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Aging" data-url="https://maketheconnection.net/events/retirement-aging">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Alcohol</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/problems-with-alcohol" target="_blank">Explore Alcohol At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Alcohol" data-url="https://maketheconnection.net/conditions/problems-with-alcohol">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Anger</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/anger-irritability" target="_blank">Explore Anger At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Anger" data-url="https://maketheconnection.net/symptoms/anger-irritability">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Anxiety</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/anxiety-disorder" target="_blank">Explore Anxiety At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Anxiety" data-url="https://maketheconnection.net/conditions/anxiety-disorder">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Apply to VA</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/office-of-vet-services/" target="_blank">Applying to the VA</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Apply to VA">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Bereavement</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/death-family-friends" target="_blank">Explore Bereavement At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Bereavement" data-url="https://maketheconnection.net/events/death-family-friends">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Bipolar Disorder</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/bipolar" target="_blank">Explore Bipolar Disorder At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Bipolar Disorder" data-url="https://maketheconnection.net/conditions/bipolar">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Cancer</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/cancer" target="_blank">Cancer Help</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Cancer" data-url="http://www.knowavet.org/cancer">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Caregivers</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/helping-you/" target="_blank">Resources for Caregivers</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Caregivers">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Champions</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/champions-get-one-for-yourself/" target="_blank">Champions – Get Yours</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Champions">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Child Care</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/child-care/" target="_blank">Child Care Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Child Care">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Civilian Life</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/transitioning-from-service" target="_blank">Explore Civilian Life At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Civilian Life" data-url="https://maketheconnection.net/events/transitioning-from-service">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Civilian, Community Help</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/civilian-community-help/" target="_blank">Civilian, Community Help</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Civilian, Community Help">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Claims and Appeals</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/office-of-vet-services" target="_blank">Claims and Appeals Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Claims and Appeals">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Clothing</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/clothing/" target="_blank"> Clothing Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Clothing">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Coming Out</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/coming-out-health-care-provider" target="_blank">Explore Coming Out At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Coming Out" data-url="https://maketheconnection.net/events/coming-out-health-care-provider">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Concentration</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/difficulty-concentrating" target="_blank">Explore Concentration At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Concentration" data-url="https://maketheconnection.net/symptoms/difficulty-concentrating">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Confusion</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/confusion" target="_blank">Explore Confusion At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Confusion" data-url="https://maketheconnection.net/symptoms/confusion">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Counseling</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/group-session-schedule" target="_blank">Counseling Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Counseling">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Co-Workers</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/dealing-with-coworkers" target="_blank">Dealing with Co-Workers</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Co-Workers">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Death</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/death-family-friends" target="_blank">Explore Death At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Death" data-url="https://maketheconnection.net/events/death-family-friends">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Dental</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/dental-care" target="_blank">Dental Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Dental">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Deployment</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/preparing-for-deployment" target="_blank">Explore Deployment At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Deployment" data-url="https://maketheconnection.net/events/preparing-for-deployment">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Depression</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/depression" target="_blank">Explore Depression At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Depression" data-url="https://maketheconnection.net/conditions/depression">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Dizziness</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/dizziness" target="_blank">Explore Dizziness At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Dizziness" data-url="https://maketheconnection.net/symptoms/dizziness">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Domestic Violence</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.knowavet.org/domestic-violence/" target="_blank">Domestic Violence Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Domestic Violence">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Donate</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/donate/" target="_blank">Donate to Know A Vet</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Donate">
+											  </div>
+										</div>
+									</div>
+								</div>
+							</div>	
+							<div class="col-md-4">
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Drugs</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/problems-with-drugs" target="_blank">Explore Drugs At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Drugs" data-url="https://maketheconnection.net/conditions/problems-with-drugs">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Eating</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/eating-problems" target="_blank">Explore Eating At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Eating" data-url="https://maketheconnection.net/symptoms/eating-problems">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Education</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/students-higher-education" target="_blank">Explore Education At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Education" data-url="https://maketheconnection.net/events/students-higher-education">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Emotional Injury</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/emotional-injury/" target="_blank">Resources for Emotional Injury</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Emotional Injury">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Employment</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/training/" target="_blank">Employment Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Employment">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Events</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/events-new" target="_blank">Explore Events At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Events">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Family & Friends</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://www.knowavet.org/familyfriends/" target="_blank">Family & Friends Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Family & Friends" data-url="https://www.knowavet.org/familyfriends/">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Family Relationships</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/family-relationships" target="_blank">Explore Family Relationships At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Family Relationships" data-url="https://maketheconnection.net/events/family-relationships">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Financial Issues</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/financial-legal-issues" target="_blank">Explore Financial Issues At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Financial Issues" data-url="https://maketheconnection.net/events/financial-legal-issues">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Flashbacks</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/flashbacks" target="_blank">Explore Flashbacks At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Flashbacks" data-url="https://maketheconnection.net/symptoms/flashbacks">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Food</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/hunger/" target="_blank">Food Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Food">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Gambling</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/gambling" target="_blank">Explore Gambling At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Gambling" data-url="https://maketheconnection.net/symptoms/gambling">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Government Help</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/government-help" target="_blank">Government Help Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Government Help">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Group Counseling Schedule</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/group-session-schedule" target="_blank">Group Counseling Schedule (San Jose)</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Group Counseling Schedule">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Guilt</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/guilt" target="_blank">Explore Guilt At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Guilt" data-url="https://maketheconnection.net/symptoms/guilt">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Headaches</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/headaches" target="_blank">Explore Headaches At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Headaches" data-url="https://maketheconnection.net/symptoms/headaches">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Helping Family</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/familyfriends/" target="_blank">Helping Family</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Helping Family">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Helping Veterans</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/helping-a-vet" target="_blank">Helping Veterans with Know A Vet</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Helping Veterans">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Homelessness</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/homelessness" target="_blank">Explore Homelessness At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Homelessness" data-url="https://maketheconnection.net/events/homelessness">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Hopelessness</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://www.maketheconnection.net/symptoms/feelings-of-hopelessness" target="_blank">Explore Hopelessness At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Hopelessness" data-url="https://www.maketheconnection.net/symptoms/feelings-of-hopelessness">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Hunger</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/hunger" target="_blank">Explore Hunger At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Hunger">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Hyper Awareness</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/hypervigilance" target="_blank">Explore Hyper Awareness At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Hyper Awareness" data-url="https://maketheconnection.net/symptoms/hypervigilance">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Irritability</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/anger-irritability" target="_blank">Explore Irritability At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Irritability" data-url="https://maketheconnection.net/symptoms/anger-irritability">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Isolation</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/social-withdrawal" target="_blank">Explore Isolation At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Isolation" data-url="https://maketheconnection.net/symptoms/social-withdrawal">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Job Problems</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/jobs-employment" target="_blank">Explore Job Problems At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Job Problems" data-url="https://maketheconnection.net/events/jobs-employment">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Jobs</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/training/" target="_blank">Jobs on Know A Vet</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Jobs">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Legal Issues</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/financial-legal-issues" target="_blank">Explore Legal Issues At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Legal Issues" data-url="https://maketheconnection.net/events/financial-legal-issues">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Light Sensitivity</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/noise-light-irritation" target="_blank">Explore Light Sensitivity At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Light Sensitivity" data-url="https://maketheconnection.net/symptoms/noise-light-irritation">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Loss of Interest</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/loss-of-interest" target="_blank">Explore Loss of Interest At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Loss of Interest" data-url="https://maketheconnection.net/symptoms/loss-of-interest">
+											  </div>
+										</div>
+									</div>
+								</div>
+								
+							</div>	
+							<div class="col-md-4">
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Memory</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/memory" target="_blank">Memory Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Memory">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Mental Health</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/mental-health/" target="_blank">Mental Health Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Mental Health">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Mourning</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/death-family-friends" target="_blank">Explore Mourning At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Mourning" data-url="https://maketheconnection.net/events/death-family-friends">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Nightmares</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/nightmares" target="_blank">Explore Nightmares At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Nightmares" data-url="https://maketheconnection.net/symptoms/nightmares">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">NON Government Help</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/non-governmental-help" target="_blank">NON Government Help</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="NON Government Help">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Noise Sensitivity</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/noise-light-irritation" target="_blank">Explore Noise Sensitivity At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Noise Sensitivity" data-url="https://maketheconnection.net/symptoms/noise-light-irritation">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Numbness</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/loss-of-interest" target="_blank">Explore Numbness At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Numbness" data-url="https://maketheconnection.net/symptoms/loss-of-interest">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">On Edge</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/hypervigilance" target="_blank">Explore On Edge At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="On Edge" data-url="https://maketheconnection.net/symptoms/hypervigilance">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Pain</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/chronic-pain" target="_blank">Explore Pain At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Pain" data-url="https://maketheconnection.net/symptoms/chronic-pain">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Physical Injury</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/injury" target="_blank">Explore Physical Injury At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Physical Injury" data-url="https://maketheconnection.net/events/injury">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">PTSD</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/ptsd-mtc" target="_blank">PTSD Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="PTSD" data-url="https://www.maketheconnection.net/conditions/ptsd">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Reckless Behavior</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/reckless-behavior" target="_blank">Explore Reckless Behavior At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Reckless Behavior" data-url="https://maketheconnection.net/symptoms/reckless-behavior">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Relationships</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/relationship-problems" target="_blank">Explore Relationships At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Relationships" data-url="https://maketheconnection.net/symptoms/relationship-problems">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Retirement</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/retirement-aging" target="_blank">Explore Retirement At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Retirement" data-url="https://maketheconnection.net/events/retirement-aging">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">San Jose Vet Center</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/vet-center-san-jose" target="_blank">Explore the San Jose Vet Center</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Addiction">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Schizophrenia</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/schizophrenia" target="_blank">Explore Schizophrenia At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Schizophrenia" data-url="https://maketheconnection.net/conditions/schizophrenia">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Sexual Trauma</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/military-sexual-trauma" target="_blank">Explore Sexual Trauma At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Sexual Trauma" data-url="https://maketheconnection.net/conditions/military-sexual-trauma">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Sleep Issues</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/trouble-sleeping" target="_blank">Explore Sleep Issues At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Sleep Issues" data-url="https://maketheconnection.net/symptoms/trouble-sleeping">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Spirituality</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/spirituality" target="_blank">Explore Spirituality At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Spirituality" data-url="https://maketheconnection.net/events/spirituality">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Stress</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://www.maketheconnection.net/conditions/anxiety-disorder" target="_blank">Explore Stress At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Stress" data-url="https://www.maketheconnection.net/conditions/anxiety-disorder">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Suicide</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/suicide" target="_blank">Explore Suicide At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Suicide" data-url="https://maketheconnection.net/conditions/suicide">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Taxes</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/taxes" target="_blank">Tax Resources</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Taxes">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Traumatic Brain Injury - TBI</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/conditions/traumatic-brain-injury" target="_blank">Explore TBI At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="TBI" data-url="https://maketheconnection.net/conditions/traumatic-brain-injury">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Training</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/training/" target="_blank">Training for Jobs and Interviews</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Training">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Transitioning from Service</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/events/transitioning-from-service" target="_blank">Explore Transitioning from Service At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Transitioning from Service" data-url="https://maketheconnection.net/events/transitioning-from-service">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Transportation</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/transportation/" target="_blank">Explore Transportation At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Transportation">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Understanding Veterans</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/understanding-you-vet" target="_blank">Explore Understanding Veterans At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Understanding Veterans">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Weight</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="https://maketheconnection.net/symptoms/eating-problems" target="_blank">Explore Weight At MTC <i class="fas fa-external-link-alt"></i></a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Weight" data-url="https://maketheconnection.net/symptoms/eating-problems">
+											  </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-wrapper">
+									<div class="card">
+										<div class="card-header">
+											<h5 class="card-title">Women's Issues</h5>
+											<h6 class="card-subtitle mb-2 text-muted">
+												<a href="http://www.staging1.knowavet.org/womens-issues/" target="_blank">Women's Issues</a>
+											  </h6>
+										</div>
+										<div class="card-body">
+											<div class="checkbox-box">
+												<input type="checkbox" class="custom-control-input" name="Women's Issues">
+											  </div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 offset-md-3">
+								<div class="respond">
+									
 								</div>
 							</div>
 						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-					</div>	
-					<div class="col-md-4">
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-					</div>	
-					<div class="col-md-4">
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-						<div class="card-wrapper">
-							<div class="card" style="width: 18rem;">
-								<div class="card-header">
-									<h5 class="card-title">Addiction</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
-										<a href="https://maketheconnection.net/symptoms/alcohol-drug-problems" target="_blank">Explore Addiction At MTC <i class="fas fa-external-link-alt"></i></a>
-									  </h6>
-								</div>
-								<div class="card-body">
-									<div class="checkbox-box">
-										<input type="checkbox" class="custom-control-input" name="Addiction">
-									  </div>
-								</div>
-							</div>
-						</div>
-					</div>						
-					<div class="respond">
-					
-					Explore resources for selected topics along with a list of Federal,
-					State, and local VSO's
-					
-					<label for="zipcode-entry">Enter your Zip Code: </label>
-					<input id="zipcode-entry" name="zipcodetarget" type="text" />
-					
-					<input type="submit" value="Explore Resources" />
-					
 					</div>
-					</form>
-					<h1 style="text-align: center;"><a title="Join KAV FREE" href="https://form.jotform.com/81544341484154"><strong><span style="color: #0c71c3;">To join KAV FREE, click</span></strong></a></h1>
+
+							
+				</form>
+
 			</div>
 		</div>
+		<div class="row" id="zip-results">
+			<div class="col" >
+				<div id="map"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h1 style="text-align: center;"><a title="Join KAV FREE" href="https://form.jotform.com/81544341484154"><strong><span style="color: #0c71c3;">To join KAV FREE, click</span></strong></a></h1>
+			</div>
+		</div>
+		<style>
+  #map {
+    height: 100%;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
 	<noscript>
 		You must enable JavaScript to run this app.
+
 	</noscript>
-	<div id="groot" class="container-fluid"></div>
+	<script type="text/javascript">
+
+	</script>
+	<script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPDVh2zxw_0DqmSUxfeAW-Zzdhh5cWA3o&libraries=places&callback=initMap"
+    ></script>
 	<script type="text/javascript" src="scripts.js"></script>
 </body>
 
