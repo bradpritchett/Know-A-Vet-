@@ -1,4 +1,4 @@
-
+const jQuery = $;
 const zipSub = (e) => {
 	e.preventDefault();
 	let zip = document.getElementById("zipcode-entry").value;
@@ -39,7 +39,7 @@ const buildAuntBerta = (zip) => {
 };
 
 const buildVa = (state) => {
-	$.ajax({
+	jQuery.ajax({
 		type: "GET",
 		url: `https://sandbox-api.va.gov/services/va_facilities/v0/facilities?state=${state}&per_page=5`,
 		headers: { apikey: "sdxDpoSvw9CDZkiOKRhKt3Y5CAeShqyy" }
@@ -141,7 +141,7 @@ const getLink = (e) => {
 	var statechunk = chunk.split("=");
 	var state = statechunk[1];
 
-	$.ajax({
+	jQuery.ajax({
 			type: "GET",
 			url: link,
 			headers: { apikey: "sdxDpoSvw9CDZkiOKRhKt3Y5CAeShqyy" },
