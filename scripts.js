@@ -4,9 +4,9 @@ const zipSub = (e) => {
 	let zip = document.getElementById("zipcode-entry").value;
 
 	if (zip === "") {
-		alert("You must enter your zip code to receive local results")
-		return
-	};
+		return alert("You must enter your zip code to receive local results")
+		
+	}
 
 	let state = getState(zip);
 	let capstate = state.code.toUpperCase();
@@ -24,11 +24,10 @@ const vso = (svao, fullstate) => {
 	var vsoResults = document.createElement('div');
 	vsoResults.innerHTML = `<h6>Find Veterans Service Offices in ${fullstate} </h6><p><a href="${svao}" target="_blank">${svao} <i class="fas fa-external-link-alt" aria-hidden="true"></i></p></a>`;
 	vso.appendChild(vsoResults);
-}
+};
 
 const buildAuntBerta = (zip) => {
 	var ab = document.getElementsByClassName('auntbertha');
-	const urls = [];
 	
 	for (var i = 0; i < ab.length; i++) {
 		let classlist = ab[i].classList;
@@ -37,8 +36,7 @@ const buildAuntBerta = (zip) => {
 		classlist.remove("auntbertha");
 		classlist.add("card-text")
 	}
-
-}
+};
 
 const buildVa = (state) => {
 	$.ajax({
@@ -92,25 +90,35 @@ const processVaResponse = (response,state) => {
 		paginationLinks.addEventListener("click", getLink, false);
 		paginationCell.appendChild(paginationLinks);
 		tFootTr.appendChild(paginationCell)
-	};
+	}
 
 	resultsTableFoot.appendChild(tFootTr);
 
 	facilities.forEach(function (facility) {
 		let website = facility.attributes.website;
 		let address2 = facility.attributes.address.physical.address_2;
-		let facility_type = facility.attributes.facility_type;
+		if (address2 === null) {
+			address2 = ""
+		}
 		let name = facility.attributes.name;
+		let code = facility.attributes.operating_status.code;
+		if (code === null) {
+			code = ""
+		}
+		let additionalInfo = facility.attributes.operating_status.additional_info;
+		if (additionalInfo === undefined) {
+			additionalInfo = ""
+		}
 		if (website !== null) {
 			name = `<a href="${facility.attributes.website}" target="_blank">${facility.attributes.name} <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>`;
 		}
 
 		if (address2 === null) {
-			address2 = ""
+			address2 = "Unavailable"
 		}
 		
 		var tr = document.createElement('tr');
-		tr.innerHTML  = `<td colspan="2">` + name + `<br />` + facility.attributes.phone.main +`</td><td colspan="2">` + facility.attributes.address.physical.address_1 +`<br />`+ address2 +`<br />`+facility.attributes.address.physical.city+`, `+facility.attributes.address.physical.state+` `+facility.attributes.address.physical.zip + `</td>`;
+		tr.innerHTML  = `<td colspan="2"><p>` + name + `</p><p>` + facility.attributes.phone.main +`</p></td><td><p>` + facility.attributes.address.physical.address_1 +`<br />`+ address2 +`<br />`+facility.attributes.address.physical.city+`, `+facility.attributes.address.physical.state+` `+facility.attributes.address.physical.zip + `</p></td><td colspan="2"><p>Operating Status: ${code}</p><p>${additionalInfo}<p></td>`;
 		resultsTableBody.appendChild(tr);
 	});
 
@@ -129,7 +137,7 @@ const getLink = (e) => {
 	var chunk = link.substring(
 		link.lastIndexOf("state="), 
 		link.lastIndexOf("&page")
-	);
+	)
 	var statechunk = chunk.split("=");
 	var state = statechunk[1];
 
