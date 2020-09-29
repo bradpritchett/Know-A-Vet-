@@ -1,5 +1,5 @@
 
-zipSub = (e) => {
+const zipSub = (e) => {
 	e.preventDefault();
 	let zip = document.getElementById("zipcode-entry").value;
 
@@ -8,17 +8,17 @@ zipSub = (e) => {
 		return
 	};
 
-	state = getState(zip);
+	let state = getState(zip);
 	let capstate = state.code.toUpperCase();
 	let fullstate = state.long;
 	let svao = state.svao;
 	
 	vso(svao,fullstate);
-	buildVa(capstate,svao);
+	buildVa(capstate);
 	buildAuntBerta(zip);
 };
 
-vso = (svao, fullstate) => {
+const vso = (svao, fullstate) => {
 	var vso = document.getElementById('vso-results');
 	vso.innerHTML = "";
 	var vsoResults = document.createElement('div');
@@ -26,7 +26,7 @@ vso = (svao, fullstate) => {
 	vso.appendChild(vsoResults);
 }
 
-buildAuntBerta = (zip) => {
+const buildAuntBerta = (zip) => {
 	var ab = document.getElementsByClassName('auntbertha');
 	const urls = [];
 	
@@ -40,7 +40,7 @@ buildAuntBerta = (zip) => {
 
 }
 
-buildVa = (state,svao) => {
+const buildVa = (state) => {
 	$.ajax({
 		type: "GET",
 		url: `https://sandbox-api.va.gov/services/va_facilities/v0/facilities?state=${state}&per_page=5`,
@@ -50,7 +50,7 @@ buildVa = (state,svao) => {
 	});
 };
 
-processVaResponse = (response,state) => {
+const processVaResponse = (response,state) => {
 	var zip = document.getElementById('zip-results');
 	zip.innerHTML = "";
 	let data = response.data;
@@ -102,7 +102,7 @@ processVaResponse = (response,state) => {
 		let name = facility.attributes.name;
 		if (website === !null) {
 			name === `<a href="${facility.attributes.website} target="_blank">${facility.attributes.name}</a>`;
-			noNull
+			noNull()
 		};
 		if (address2 === null) {
 			address2 = ""
@@ -118,9 +118,9 @@ processVaResponse = (response,state) => {
 	zip.appendChild(resultsTable);
 };
 
-noNull = (arg) => {alert(arg)}
+const noNull = (arg) => {alert(arg)}
 
-getLink = (e) => {
+const getLink = (e) => {
 	e.preventDefault();
 	let link = e.srcElement.attributes.href.value;
 	if (link === '#') {
@@ -134,16 +134,16 @@ getLink = (e) => {
 	var statechunk = chunk.split("=");
 	var state = statechunk[1];
 
-$.ajax({
-		type: "GET",
-		url: link,
-		headers: { apikey: "sdxDpoSvw9CDZkiOKRhKt3Y5CAeShqyy" },
-	}).then(function (response) {
-		processVaResponse(response,state)
-	});
+	$.ajax({
+			type: "GET",
+			url: link,
+			headers: { apikey: "sdxDpoSvw9CDZkiOKRhKt3Y5CAeShqyy" },
+		}).then(function (response) {
+			processVaResponse(response,state)
+		});
 };
 
-getState = (zip) => {
+const getState = (zip) => {
 	var states = [
 		{ min: 35000, max: 36999, code: "AL", long: "Alabama", svao: "https://va.alabama.gov/serviceofficer/" },
 		{ min: 99500, max: 99999, code: "AK", long: "Alaska", svao: "http://veterans.alaska.gov/VSO" },
