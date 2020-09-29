@@ -46,6 +46,7 @@ const buildVa = (state) => {
 		url: `https://sandbox-api.va.gov/services/va_facilities/v0/facilities?state=${state}&per_page=5`,
 		headers: { apikey: "sdxDpoSvw9CDZkiOKRhKt3Y5CAeShqyy" }
 	}).then(function (response) {
+		console.log(response)
 		processVaResponse(response, state)
 	});
 };
@@ -91,7 +92,7 @@ const processVaResponse = (response,state) => {
 		paginationLinks.addEventListener("click", getLink, false);
 		paginationCell.appendChild(paginationLinks);
 		tFootTr.appendChild(paginationCell)
-	}
+	};
 
 	resultsTableFoot.appendChild(tFootTr);
 
@@ -100,10 +101,10 @@ const processVaResponse = (response,state) => {
 		let address2 = facility.attributes.address.physical.address_2;
 		let facility_type = facility.attributes.facility_type;
 		let name = facility.attributes.name;
-		if (website === !null) {
-			name === `<a href="${facility.attributes.website} target="_blank">${facility.attributes.name}</a>`;
-			noNull()
-		};
+		if (website !== null) {
+			name = `<a href="${facility.attributes.website}" target="_blank">${facility.attributes.name} <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>`;
+		}
+
 		if (address2 === null) {
 			address2 = ""
 		}
@@ -117,8 +118,6 @@ const processVaResponse = (response,state) => {
 	resultsTable.appendChild(resultsTableFoot);
 	zip.appendChild(resultsTable);
 };
-
-const noNull = (arg) => {alert(arg)}
 
 const getLink = (e) => {
 	e.preventDefault();
